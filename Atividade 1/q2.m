@@ -1,58 +1,64 @@
-display("teste");
+clc
+clear all
+close all
 
-function [sqrt_a, final_error] = babylonian_sqrt(a, tol)
-    % Verifica se 'a' é negativo para trabalhar com números imaginários
+function [result, finalError] = babylonianSqrt(a, epsilon)
+    % Verificar se 'a' é negativo
     if a < 0
-        a = -a;
-        is_imaginary = true;
+        isImaginary = true;
+        a = abs(a);
     else
-        is_imaginary = false;
+        isImaginary = false;
     end
 
-    % Inicializa x e define um valor inicial de erro
+    % Estimativa inicial para x
     if a == 0
-        sqrt_a = 0;  % Raiz quadrada de 0 é 0
-        final_error = 0;
+        result = 0;
+        finalError = 0;
         return;
+    else
+        xOld = a;  % Pode-se usar outra estimativa inicial
     end
 
-    x_old = a / 2; % Escolha inicial de x, baseada em a
-
-    % Laço de iteração para refinamento da raiz quadrada
     while true
-        % Aplica a fórmula babilônica
-        x_new = (x_old + a / x_old) / 2;
+        % Método babilônico
+        xNew = (xOld + a / xOld) / 2;
 
-        % Calcula o erro relativo
-        epsilon = abs((x_new - x_old) / x_new);
+        % Calcular o erro relativo
+        relativeError = abs((xNew - xOld) / xNew);
 
-        % Atualiza x_old para a próxima iteração
-        x_old = x_new;
-
-        % Verifica se o erro é menor que a tolerância, então interrompe o loop
-        if epsilon <= tol
+        % Verificar se o erro é menor ou igual à tolerância
+        if relativeError <= epsilon
             break;
         end
+
+        % Atualizar x para o próximo ciclo
+        xOld = xNew;
     end
 
-    % Caso o número seja negativo, converte o resultado para número imaginário
-    if is_imaginary
-        sqrt_a = x_new * 1i;
+    % Ajustar o resultado se for imaginário
+    if isImaginary
+        result = xNew * 1i;
     else
-        sqrt_a = x_new;
+        result = xNew;
     end
 
-    % Retorna o resultado final e o erro
-    final_error = epsilon;
+    finalError = relativeError;
 end
 
-% Testando a função para diferentes valores de 'a' com tolerância de 10^-4
-tolerance = 1e-4;  % Pode ser ajustado para 1e-3 ou outro valor conforme necessário
-values = [0, 2, 10, -4];
+% Teste com a = 0
+[sqrt0, error0] = babylonianSqrt(0, 1e-4);
+fprintf('Raiz quadrada de 0: %f com erro de %f\n', sqrt0, error0);
 
-for i = 1:length(values)
-    a = values(i);
-    [result, error] = babylonian_sqrt(a, tolerance);
-    fprintf('Para a = %d: sqrt(a) = %.5f, erro final = %.5e\n', a, result, error);
-end
+% Teste com a = 2
+[sqrt2, error2] = babylonianSqrt(2, 1e-4);
+fprintf('Raiz quadrada de 2: %f com erro de %f\n', sqrt2, error2);
+
+% Teste com a = 10
+[sqrt10, error10] = babylonianSqrt(10, 1e-4);
+fprintf('Raiz quadrada de 10: %f com erro de %f\n', sqrt10, error10);
+
+% Teste com a = -4
+[sqrtNeg4, errorNeg4] = babylonianSqrt(-4, 1e-4);
+fprintf('Raiz quadrada de -4: %fi com erro de %f\n', sqrtNeg4, errorNeg4);
 
