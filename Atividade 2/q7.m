@@ -6,13 +6,13 @@ close all;
 f = @(x) -0.1*x.^4 - 0.15*x.^3 - 0.5*x.^2 - 0.25*x + 1.2;
 
 % Define a derivada exata de f(x) calculada analiticamente
-f_prime_exact = @(x) -0.4*x.^3 - 0.45*x.^2 - 1.0*x - 0.25;
+f_exata = @(x) -0.4*x.^3 - 0.45*x.^2 - 1.0*x - 0.25;
 
 % Ponto em que queremos calcular a derivada
 x = 0.5;
 
 % Valor exato da derivada em x = 0.5
-valor_verdadeiro = f_prime_exact(x);
+valor_verdadeiro = f_exata(x);
 
 % Inicializa o tamanho do passo e outros parâmetros
 h = 1;

@@ -6,7 +6,7 @@ close all;
 x = 0.5;
 
 % Valor verdadeiro de e^0.5 (usado para comparação)
-valor_verdadeiro = 1.648721;
+valor_verdadeiro = exp(0.5);
 
 % Inicializa a série com o primeiro termo (1)
 soma = 1;
@@ -15,7 +15,7 @@ soma = 1;
 erro_aproximado = inf;
 
 % Critério de erro para 3 algarismos significativos
-epsilon_s = 0.05;
+epsilon = 0.05;
 
 % Inicializa o contador de termos
 n = 1;
@@ -25,7 +25,7 @@ fprintf('Termo |    Soma       | Erro Verdadeiro | Erro Aproximado\n');
 fprintf('----------------------------------------------------------\n');
 
 % Calcula os termos adicionais da série até que o erro seja aceitável
-while abs(erro_aproximado) > epsilon_s
+while abs(erro_aproximado) > epsilon
     % Calcula o próximo termo da série
     termo = x^n / factorial(n);
 
