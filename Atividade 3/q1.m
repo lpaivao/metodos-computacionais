@@ -10,20 +10,19 @@ a = 0.5;
 b = 1;
 
 % Critério de parada
-epsilon_s = 2; % 2%
-epsilon_a = inf; % Erro aproximado inicial
-max_iter = 100; % Número máximo de iterações
-iter = 0; % Contador de iterações
+epsilon_s = 2; % Tolerância de 2% para o erro relativo
+epsilon_a = inf; % Erro relativo aproximado inicial
 
 % Inicialização de variáveis
 prev_c = 0;
+iter = 0; % Contador de iterações
 
 % Cabeçalho para exibição
 fprintf('Iteração |    a     |    b     |    c     |   f(c)   | Erro Aproximado\n');
 fprintf('---------------------------------------------------------------------\n');
 
 % Método da Bissecção
-while epsilon_a > epsilon_s && iter < max_iter
+while epsilon_a > epsilon_s
     iter = iter + 1;
 
     % Calcular o ponto médio
@@ -32,7 +31,7 @@ while epsilon_a > epsilon_s && iter < max_iter
     % Calcular o valor da função em c
     fc = f(c);
 
-    % Calcular o erro aproximado
+    % Calcular o erro relativo aproximado
     if iter > 1
         epsilon_a = abs((c - prev_c) / c) * 100;
     end

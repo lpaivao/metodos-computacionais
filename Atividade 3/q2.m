@@ -12,28 +12,25 @@ a = 0;
 b = 1;
 
 % Critério de parada
-epsilon = 5e-4;
+epsilon_s = 5e-4; % Tolerância para o erro relativo aproximado
 epsilon_a = inf; % Erro aproximado inicial
-
-% Número máximo de iterações para garantir que o loop termine
-max_iter = 100;
-iter = 0;
 
 % Guardando os valores da iteração anterior para o cálculo do erro
 xr_prev = 0;
+iter = 0; % Contador de iterações
 
 % Saída de Cabeçalho
 fprintf('Iter |    a      |    b      |   xr      |  f(xr)    |  Epsilon_a  \n');
 fprintf('-----------------------------------------------------------------\n');
 
 % Loop do método da falsa posição
-while epsilon_a > epsilon && iter < max_iter
+while epsilon_a > epsilon_s
     iter = iter + 1;
 
     % Calcula a raiz aproximada usando a fórmula da falsa posição
     xr = b - (f(b) * (a - b)) / (f(a) - f(b));
 
-    % Calcular o erro aproximado
+    % Calcular o erro relativo aproximado
     if iter > 1
         epsilon_a = abs((xr - xr_prev) / xr) * 100;
     end
