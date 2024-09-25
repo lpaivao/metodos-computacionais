@@ -2,9 +2,6 @@ clc;
 clear all;
 close all;
 
-% Carregar a função de iteração linear
-addpath('/caminho/para/o/arquivo'); % Substitua pelo caminho correto
-
 % Parâmetros fornecidos
 Pu_max = 80000;
 ku = 0.05;
