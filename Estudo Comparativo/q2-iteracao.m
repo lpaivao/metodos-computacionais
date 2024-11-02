@@ -33,9 +33,14 @@ fprintf('População urbana Pu(t): %.5f\n', Pu_t);
 fprintf('População suburbana Ps(t): %.5f\n', Ps_t);
 
 % Gerando a tabela
-printf('Iteração\tRaiz Aproximada\tErro Aproximado\n');
+fprintf('\nIteração\tRaiz Aproximada (t)\tErro Aproximado (%%)\n');
+fprintf('-------------------------------------------------------\n');
 for i = 1:iter
-  printf('%d\t\t%.5f\t\t%.5f\n', i, xr_values(i), ea_values(i));
+  if i <= length(ea_values)
+    fprintf('%d\t\t%.5f\t\t%.5f\n', i, xr_values(i), ea_values(i));
+  else
+    fprintf('%d\t\t%.5f\t\t-\n', i, xr_values(i)); % Para a última iteração sem erro
+  endif
 endfor
 
 % Gerando o gráfico
@@ -45,3 +50,4 @@ xlabel('Iteração');
 ylabel('Valor de t');
 title('Convergência do Método da Iteração Linear');
 grid on;
+
